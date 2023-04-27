@@ -26,7 +26,7 @@ from opentelemetry.semconv.model.semantic_convention import (
 from opentelemetry.semconv.templating.code import CodeRenderer
 from opentelemetry.semconv.templating.markdown import MarkdownRenderer
 from opentelemetry.semconv.templating.markdown.options import MarkdownOptions
-
+from opentelemetry.semconv.templating.registry import RegistryRenderer
 
 def parse_semconv(args, parser) -> SemanticConventionSet:
     semconv = SemanticConventionSet(args.debug)
@@ -76,7 +76,8 @@ def main():
         renderer.render(semconv, args.template, args.output, args.pattern)
     elif args.flavor == "markdown":
         process_markdown(semconv, args)
-
+    elif args.flavor == "registry":
+        process_registry(semconv, args)
 
 def process_markdown(semconv, args):
     options = MarkdownOptions(
@@ -90,6 +91,19 @@ def process_markdown(semconv, args):
     )
     md_renderer = MarkdownRenderer(args.markdown_root, semconv, options)
     md_renderer.render_md()
+
+def process_registry(semconv, args):
+    options = MarkdownOptions(
+        check_only=args.md_check,
+        enable_stable=args.md_stable,
+        enable_experimental=args.md_experimental,
+        enable_deprecated=args.md_enable_deprecated,
+        use_badge=args.md_use_badges,
+        break_count=args.md_break_conditional,
+        exclude_files=exclude_file_list(args.markdown_root, args.exclude),
+    )
+    registry_renderer = RegistryRenderer(semconv, options)
+    registry_renderer.render_registry()
 
 
 def find_yaml(args):
@@ -215,6 +229,56 @@ def add_md_parser(subparsers):
         action="store_false",
     )
 
+def add_registry_parser(subparsers):
+    parser = subparsers.add_parser("registry")
+    parser.add_argument(
+        "--markdown-root",
+        "-md",
+        help="Specify folder of the markdown files",
+        type=str,
+        required=True,
+    )
+    parser.add_argument(
+        "--md-break-conditional",
+        "-bc",
+        help="Set the number of chars before moving conditional causes of attributes to footnotes",
+        type=str,
+        required=False,
+        default=MarkdownRenderer.default_break_conditional_labels,
+    )
+    parser.add_argument(
+        "--md-check",
+        help="Don't write the files back, just return the status. Return code 0 means nothing would change. Return "
+        "code 1 means some files would change.",
+        required=False,
+        action="store_true",
+    )
+    parser.add_argument(
+        "--md-use-badges",
+        help="Use stability badges instead of labels for attributes.",
+        required=False,
+        action="store_true",
+    )
+    parser.add_argument(
+        "--md-stable",
+        help="Add labels to attributes marked as stable.",
+        required=False,
+        action="store_true",
+    )
+    parser.add_argument(
+        "--md-experimental",
+        help="Add labels to attributes marked as experimental.",
+        required=False,
+        action="store_true",
+    )
+    parser.add_argument(
+        "--md-disable-deprecated",
+        help="Removes deprecated notes of deprecated attributes.",
+        required=False,
+        default=True,
+        dest="md_enable_deprecated",
+        action="store_false",
+    )
 
 def setup_parser():
     parser = argparse.ArgumentParser(
@@ -258,6 +322,7 @@ def setup_parser():
     subparsers = parser.add_subparsers(dest="flavor")
     add_code_parser(subparsers)
     add_md_parser(subparsers)
+    add_registry_parser(subparsers)
 
     return parser
 

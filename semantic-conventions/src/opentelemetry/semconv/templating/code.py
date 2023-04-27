@@ -127,7 +127,7 @@ def to_html_links(doc_string: typing.Optional[typing.Union[str, TextWithLinks]])
             if isinstance(elm, str):
                 str_list.append(elm)
             else:
-                str_list.append(f'<a href="{elm.url}">{elm.text}</a>')
+                str_list.append(f'<a href="{elm.url}">{elm.text}/>')
         doc_string = "".join(str_list)
     doc_string = doc_string.strip()
     if doc_string.endswith("."):

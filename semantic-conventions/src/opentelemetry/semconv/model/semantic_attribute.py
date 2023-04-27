@@ -65,6 +65,8 @@ class SemanticAttribute:
     sampling_relevant: bool
     note: str
     position: List[int]
+    root_namespace: str
+    namespace: str
     inherited: bool = False
     imported: bool = False
 
@@ -192,7 +194,7 @@ class SemanticAttribute:
                 )
                 msg = f"Semantic convention stability set to deprecated but attribute '{attr_id}' is {stability}"
                 raise ValidationError.from_yaml_pos(position, msg)
-            stability = stability or semconv_stability or StabilityLevel.STABLE
+            stability = stability or semconv_stability or StabilityLevel.EXPERIMENTAL
             sampling_relevant = (
                 AttributeType.to_bool("sampling_relevant", attribute)
                 if attribute.get("sampling_relevant")
@@ -202,6 +204,9 @@ class SemanticAttribute:
             fqn = fqn.strip()
             parsed_brief = TextWithLinks(brief.strip() if brief else "")
             parsed_note = TextWithLinks(note.strip())
+            namespace_end = fqn.rfind(".")
+            if namespace_end < 0: 
+                namespace_end = len(fqn)
             attr = SemanticAttribute(
                 fqn=fqn,
                 attr_id=attr_id,
@@ -217,6 +222,8 @@ class SemanticAttribute:
                 sampling_relevant=sampling_relevant,
                 note=parsed_note,
                 position=position,
+                root_namespace=fqn.split(".")[0],
+                namespace=fqn[:namespace_end],
             )
             if attr.fqn in attributes:
                 position = position_data[list(attribute)[0]]

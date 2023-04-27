@@ -1,0 +1,17 @@
+groups:
+  - id: message.attributes
+    prefix: messaging
+    type: attribute_group
+    brief: describes per-message attributes
+    attributes:
+      - id: message.id
+        brief: message id
+        type: string
+        examples: ["foo"]
+
+  - id: publish.link
+    type: link
+    brief: Represents link describing a single message published in a batch
+    to: trace context populated on the message
+    attributes:
+      - ref: messaging.message.id

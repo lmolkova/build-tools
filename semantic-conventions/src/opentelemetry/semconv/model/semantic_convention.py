@@ -12,6 +12,7 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
+import os
 import sys
 import typing
 from dataclasses import dataclass, field
@@ -87,6 +88,7 @@ def SemanticConvention(group):
     # First, validate that the correct fields are available in the yaml
     convention_type.validate_keys(group)
     model = convention_type(group)
+    
     # Also, validate that the value of the fields is acceptable
     model.validate_values()
     return model
@@ -105,6 +107,7 @@ class BaseSemanticConvention(ValidatableYamlNode):
         "extends",
         "attributes",
         "constraints",
+        "file",
     )
 
     GROUP_TYPE_NAME: str

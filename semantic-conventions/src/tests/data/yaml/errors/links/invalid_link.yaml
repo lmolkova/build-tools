@@ -1,0 +1,8 @@
+groups:
+  - id: random.link
+    type: link
+    brief: example
+    attributes:
+      - id: flag
+        type: boolean
+        brief: An attribute.
