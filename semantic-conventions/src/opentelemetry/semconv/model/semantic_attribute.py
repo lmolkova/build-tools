@@ -59,6 +59,7 @@ class SemanticAttribute:
     sampling_relevant: bool
     note: str
     position: List[int]
+    root_namespace: str
     inherited: bool = False
     imported: bool = False
 
@@ -200,6 +201,10 @@ class SemanticAttribute:
             fqn = fqn.strip()
             parsed_brief = TextWithLinks(brief.strip() if brief else "")
             parsed_note = TextWithLinks(note.strip())
+
+            namespaces = fqn.split(".")
+            root_namespace = namespaces[0] if len(namespaces) > 1 else ""
+
             attr = SemanticAttribute(
                 fqn=fqn,
                 attr_id=attr_id,
@@ -215,6 +220,7 @@ class SemanticAttribute:
                 sampling_relevant=sampling_relevant,
                 note=parsed_note,
                 position=position,
+                root_namespace=root_namespace,
             )
             if attr.fqn in attributes:
                 position = position_data[list(attribute)[0]]
@@ -322,6 +328,7 @@ class SemanticAttribute:
                 raise ValidationError.from_yaml_pos(position_data["deprecated"], msg)
             return deprecated.strip()
         return None
+
 
     def equivalent_to(self, other: "SemanticAttribute"):
         if self.attr_id is not None:
