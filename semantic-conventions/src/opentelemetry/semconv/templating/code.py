@@ -190,13 +190,13 @@ def is_stable(obj: typing.Union[SemanticAttribute, BaseSemanticConvention]) -> b
 
 
 def is_deprecated(obj: typing.Union[SemanticAttribute, BaseSemanticConvention]) -> bool:
-    return obj.stability == StabilityLevel.DEPRECATED
+    return obj.deprecated is not None
 
 
 def is_experimental(
     obj: typing.Union[SemanticAttribute, BaseSemanticConvention]
 ) -> bool:
-    return obj.stability is None or obj.stability == StabilityLevel.EXPERIMENTAL
+    return obj.stability == StabilityLevel.EXPERIMENTAL
 
 
 def is_definition(attribute: SemanticAttribute) -> bool:
@@ -308,6 +308,7 @@ class CodeRenderer:
         output_file,
         pattern: str,
     ):
+        assert not semconvset.has_error()
         file_name = os.path.basename(template_path)
         folder = os.path.dirname(template_path)
         env = Environment(

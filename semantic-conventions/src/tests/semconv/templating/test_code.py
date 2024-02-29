@@ -36,6 +36,7 @@ def test_codegen_metrics_all(test_file_path, read_test_file):
     with open(filename, "r", encoding="utf-8") as f:
         result = f.read()
 
+    print(result)
     expected = read_test_file("jinja", "metrics", "expected_metrics.java")
 
     assert result == expected
