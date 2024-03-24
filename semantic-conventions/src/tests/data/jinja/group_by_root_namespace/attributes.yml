@@ -7,7 +7,7 @@ groups:
       - id: last_attr # intentionally out of alphabetical order to test sorting
         type: boolean
         stability: experimental
-        brief: short description of last_attr
+        brief: short description of last_attr with some special chars like `<key>` and an [url](https://docs.oracle.com/en/java/javase/11/docs/api/java.management/java/lang/management/BufferPoolMXBean.html#getName())
       - id: attr_template_one
         type: template[string]
         stability: experimental

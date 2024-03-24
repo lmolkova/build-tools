@@ -54,68 +54,67 @@ def render_markdown(
     code=None,
 ):
     class CustomRender(mistune.HTMLRenderer):
-        def link(self, url, text=None, title=None):  # pylint:disable=arguments-renamed
+        def link(self, text: str, url: str, title=None) -> str:
             if link:
                 return link.format(url, text, title)
-            return super().link(url, text, title) if html else url
+            return super().link(text, url, title) if html else url
 
-        def image(self, src, alt="", title=None):
+        def image(self, text: str, url: str, title=None) -> str:
             if image:
-                return image.format(src, alt, title)
-            return super().image(src, alt, title) if html else src
+                return image.format(text, url, title)
+            return super().image(text, url, title) if html else text
 
-        def emphasis(self, text):
+        def emphasis(self, text: str) -> str:
             if emphasis:
                 return emphasis.format(text)
             return super().emphasis(text) if html else text
 
-        def strong(self, text):
+        def strong(self, text: str) -> str:
             if strong:
                 return strong.format(text)
             return super().strong(text) if html else text
 
-        def inline_html(self, html_text):  # pylint:disable=arguments-renamed
+        def inline_html(self, html: str) -> str:
             if inline_html:
-                return inline_html.format(html_text)
-            return super().inline_html(html_text) if html else html_text
+                return inline_html.format(html)
+            return super().inline_html(html) if html else html
 
-        def paragraph(self, text):
+        def paragraph(self, text: str) -> str:
             if paragraph:
                 return paragraph.format(text)
             return super().paragraph(text) if html else text
 
-        def heading(self, text, level):
+        def heading(self, text: str, level: int, **attrs) -> str:
             if heading:
                 return heading.format(text, level)
-            return super().heading(text, level) if html else text
+            return super().heading(text, level, **attrs) if html else text
 
-        def block_code(self, code, info=None):
+        def block_code(self, code: str, info=None) -> str:
             if block_code:
                 return block_code.format(code)
             return super().block_code(code, info) if html else code
 
-        def block_quote(self, text):
+        def block_quote(self, text: str) -> str:
             if block_quote:
                 return block_quote.format(text)
             return super().block_quote(text)
 
-        def list(self, text, ordered, level, start=None):
+        def list(self, text: str, ordered: bool, **attrs) -> str:
             if list:
                 return list.format(text)
-            return super().list(text, ordered, level, start) if html else text
+            return super().list(text, ordered, **attrs) if html else text
 
-        def list_item(self, text, level):
+        def list_item(self, text: str) -> str:
             if list_item:
                 return list_item.format(text)
-            return super().list_item(text, level) if html else text
+            return super().list_item(text) if html else text
 
-        def codespan(self, text):
+        def codespan(self, text: str) -> str:
             if code:
                 return code.format(text)
             return super().codespan(text) if html else text
 
-    markdown = mistune.create_markdown(renderer=CustomRender())
-    return markdown(txt)
+    return mistune.markdown(txt, escape=False, renderer=CustomRender())
 
 
 def to_doc_brief(doc_string: typing.Optional[str]) -> str:
