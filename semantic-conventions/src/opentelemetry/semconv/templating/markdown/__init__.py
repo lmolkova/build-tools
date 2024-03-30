@@ -142,11 +142,7 @@ class MarkdownRenderer:
                 if example_list
                 else f"`{attribute.attr_type.members[0].value}`"
             )
-            # Add better type info to enum
-            if attribute.attr_type.custom_values:
-                attr_type = attribute.attr_type.enum_type
-            else:
-                attr_type = attribute.attr_type.enum_type
+            attr_type = attribute.attr_type.enum_type
         elif attribute.attr_type:
             example_list = attribute.examples if attribute.examples else []
             # check for array types
@@ -320,14 +316,11 @@ class MarkdownRenderer:
         for attr in self.render_ctx.enums:
             enum = typing.cast(EnumAttributeType, attr.attr_type)
             output.write("\n`" + attr.fqn + "` ")
-            if enum.custom_values:
-                output.write(
-                    "has the following list of well-known values."
-                    + " If one of them applies, then the respective value MUST be used;"
-                    + " otherwise, a custom value MAY be used."
-                )
-            else:
-                output.write("MUST be one of the following:")
+            output.write(
+                "has the following list of well-known values."
+                + " If one of them applies, then the respective value MUST be used;"
+                + " otherwise, a custom value MAY be used."
+            )
             output.write("\n\n")
             output.write("| Value  | Description | Stability |\n|---|---|---|")
             member: EnumMember

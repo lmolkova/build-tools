@@ -36,7 +36,7 @@
 
 **[1]:** Usually 802.11
 
-`net.transport` MUST be one of the following:
+`net.transport` has the following list of well-known values. If one of them applies, then the respective value MUST be used; otherwise, a custom value MAY be used.
 
 | Value  | Description | Stability |
 |---|---|---|

@@ -8,7 +8,6 @@ groups:
       - id: transport
         stability: experimental
         type:
-          allow_custom_values: false
           members:
             - id: ip.tcp
               value: "IP.TCP"
@@ -46,7 +45,6 @@ groups:
       - id: host.connection.type
         stability: experimental
         type:
-          allow_custom_values: true
           members:
             - id: wifi
               value: "wifi"
@@ -66,7 +64,6 @@ groups:
       - id: host.connection.subtype
         stability: experimental
         type:
-          allow_custom_values: true
           members:
             - id: gen1g
               value: "1G"

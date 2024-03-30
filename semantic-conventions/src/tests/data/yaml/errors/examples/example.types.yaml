@@ -25,7 +25,6 @@ groups:
         stability: experimental
       - id: value
         type:
-          allow_custom_values: false
           members:
             - id: VAL
               value: 'val'

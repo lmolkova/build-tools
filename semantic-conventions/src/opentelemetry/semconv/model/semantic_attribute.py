@@ -451,12 +451,10 @@ class AttributeType:
 
 @dataclass
 class EnumAttributeType:
-    custom_values: bool
     members: "List[EnumMember]"
     enum_type: str
 
-    def __init__(self, custom_values, members, enum_type):
-        self.custom_values = custom_values
+    def __init__(self, members, enum_type):
         self.members = members
         self.enum_type = enum_type
 
@@ -481,14 +479,9 @@ class EnumAttributeType:
             validation_ctx.raise_or_warn(
                 position, f"Invalid type: {attribute_type} is not allowed", None
             )
-        allowed_keys = ["allow_custom_values", "members"]
+        allowed_keys = ["members"]
         mandatory_keys = ["members"]
         validate_values(attribute_type, allowed_keys, validation_ctx, mandatory_keys)
-        custom_values = (
-            bool(attribute_type.get("allow_custom_values"))
-            if "allow_custom_values" in attribute_type
-            else False
-        )
         members = []
         if (
             not isinstance(attribute_type["members"], CommentedSeq)
@@ -538,7 +531,7 @@ class EnumAttributeType:
                     f"Enumeration member does not have type {enum_type}!",
                     m.member_id,
                 )
-        return EnumAttributeType(custom_values, members, enum_type)
+        return EnumAttributeType(members, enum_type)
 
 
 @dataclass

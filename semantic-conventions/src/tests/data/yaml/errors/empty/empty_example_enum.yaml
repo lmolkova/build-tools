@@ -8,7 +8,6 @@ groups:
       - id: type
         stability: experimental
         type:
-          allow_custom_values: false
           members:
             - id: first
               value: 'first'

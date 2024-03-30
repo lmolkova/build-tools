@@ -7,7 +7,7 @@
 | [`test.stable_attr`](stable_badges_expected.md) | boolean |  |  | `Required` | ![Stable](https://img.shields.io/badge/-stable-lightgreen) |
 | [`test.stable_enum_attr`](stable_badges_expected.md) | string |  | `one` | `Recommended` | ![Stable](https://img.shields.io/badge/-stable-lightgreen) |
 
-`test.stable_enum_attr` MUST be one of the following:
+`test.stable_enum_attr` has the following list of well-known values. If one of them applies, then the respective value MUST be used; otherwise, a custom value MAY be used.
 
 | Value  | Description | Stability |
 |---|---|---|
@@ -36,7 +36,7 @@
 | [`test.stable_attr`](stable_badges_expected.md) | boolean |  |  | `Required` | ![Stable](https://img.shields.io/badge/-stable-lightgreen) |
 | [`test.stable_enum_attr`](stable_badges_expected.md) | string |  | `one` | `Recommended` | ![Stable](https://img.shields.io/badge/-stable-lightgreen) |
 
-`test.stable_enum_attr` MUST be one of the following:
+`test.stable_enum_attr` has the following list of well-known values. If one of them applies, then the respective value MUST be used; otherwise, a custom value MAY be used.
 
 | Value  | Description | Stability |
 |---|---|---|

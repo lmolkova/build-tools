@@ -8,7 +8,6 @@ groups:
       - id: transport
         stability: experimental
         type:
-          allow_custom_values: false
           members:
             - id: ip.tcp
               value: "IP.TCP"

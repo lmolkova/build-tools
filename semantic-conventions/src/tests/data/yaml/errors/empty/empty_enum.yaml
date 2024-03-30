@@ -7,7 +7,6 @@ groups:
     attributes:
       - id: test
         type:
-          allow_custom_values: false
           members:
         requirement_level: required
         brief: 'test'

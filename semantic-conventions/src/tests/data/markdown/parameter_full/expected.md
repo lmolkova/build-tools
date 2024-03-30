@@ -30,7 +30,7 @@
 * `http.scheme`, [`http.server_name`](http.md), `net.host.port`, `http.target`
 * `http.scheme`, `net.host.name`, `net.host.port`, `http.target`
 
-`faas.trigger` MUST be one of the following:
+`faas.trigger` has the following list of well-known values. If one of them applies, then the respective value MUST be used; otherwise, a custom value MAY be used.
 
 | Value  | Description | Stability |
 |---|---|---|

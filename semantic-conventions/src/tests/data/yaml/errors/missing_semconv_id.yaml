@@ -7,7 +7,6 @@ groups:
       - id: test
         stability: experimental
         type:
-          allow_custom_values: false
           members:
         requirement_level: required
         brief: 'test'

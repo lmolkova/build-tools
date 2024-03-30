@@ -8,7 +8,6 @@ groups:
       - id: test
         type:
           ambarabacci: cici
-          allow_custom_values: false
           members:
         requirement_level: required
         brief: 'test'

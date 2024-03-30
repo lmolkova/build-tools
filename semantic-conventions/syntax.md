@@ -87,9 +87,7 @@ simple_type ::= "string"
 
 template_type ::= "template[" simple_type "]" # As a single string
 
-enum ::= [allow_custom_values] members
-
-allow_custom_values := boolean
+enum ::= members
 
 members ::= member {member}
 
@@ -366,8 +364,6 @@ In this example the definition will be resolved into a dictionary of attributes 
 
 If the type is an enumeration, additional fields are required:
 
-- `allow_custom_values`, optional boolean, set to false to not accept values
-     other than the specified members. It defaults to `true`.
 - `members`, list of enum entries.
 
 An enum entry has the following fields:

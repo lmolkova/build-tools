@@ -228,9 +228,6 @@
 			"type": "object",
 			"additionalProperties": false,
 			"properties": {
-				"allow_custom_values": {
-					"type": "boolean"
-				},
 				"members": {
 					"type": "array",
 					"items": {

@@ -324,7 +324,7 @@ class TestCorrectErrorDetection(unittest.TestCase):
         e = ex.exception
         msg = e.message.lower()
         self.assertIn("enumeration without members", msg)
-        self.assertEqual(e.line, 11)
+        self.assertEqual(e.line, 10)
 
     def test_empty_example_array(self):
         with self.assertRaises(ValidationError) as ex:
@@ -366,7 +366,7 @@ class TestCorrectErrorDetection(unittest.TestCase):
         msg = e.message.lower()
         self.assertIn("invalid keys", msg)
         self.assertIn("type", msg)
-        self.assertEqual(e.line, 13)
+        self.assertEqual(e.line, 12)
 
     def test_enum_with_double_values(self):
         with self.assertRaises(ValidationError) as ex:

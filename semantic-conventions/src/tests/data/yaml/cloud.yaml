@@ -8,7 +8,6 @@ groups:
       - id: provider
         stability: experimental
         type:
-          allow_custom_values: true
           members:
             - id: aws
               value: 'aws'
